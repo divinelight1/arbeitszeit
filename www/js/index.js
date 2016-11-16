@@ -21,6 +21,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
+       
     },
     // Bind Event Listeners
     //
@@ -37,6 +38,7 @@ var app = {
         console.log('Received Device Ready Event');
         console.log('calling setup push');
         app.setupPush();
+
     },
     setupPush: function() {
         console.log('calling push init');
@@ -87,37 +89,5 @@ var app = {
        });
     }
 	
-	//local notification
-	
-	document.addEventListener('deviceready', function () {
-    // Schedule notification for tomorrow to remember about the meeting
-    cordova.plugins.notification.local.schedule({
-        id: 10,
-        title: "Meeting in 15 minutes!",
-        text: "Jour fixe Produktionsbesprechung",
-        at: today_at_9_30_am,
-        data: { meetingId:"#123FG8" }
-    });
 
-    // Join BBM Meeting when user has clicked on the notification 
-    cordova.plugins.notification.local.on("click", function (notification) {
-        if (notification.id == 10) {
-            joinMeeting(notification.data.meetingId);
-        }
-    });
-
-    // Notification has reached its trigger time (Tomorrow at 8:45 AM)
-    cordova.plugins.notification.local.on("trigger", function (notification) {
-        if (notification.id != 10)
-            return;
-
-        // After 10 minutes update notification's title 
-        setTimeout(function () {
-            cordova.plugins.notification.local.update({
-                id: 10,
-                title: "Meeting in 5 minutes!"
-            });
-        }, 600000);
-    });
-}, false);;
 };
